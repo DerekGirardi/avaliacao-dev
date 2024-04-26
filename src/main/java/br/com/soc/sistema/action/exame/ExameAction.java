@@ -22,6 +22,10 @@ public class ExameAction extends Action {
 		return SUCCESS;
 	}
 	
+	public void teste() {
+		System.out.println("teste");
+	}
+	
 	public String filtrar() {
 		if(filtrar.isNullOpcoesCombo())
 			return REDIRECT;
