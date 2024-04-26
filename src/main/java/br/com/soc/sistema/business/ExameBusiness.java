@@ -17,6 +17,10 @@ public class ExameBusiness {
 		this.dao = new ExameDao();
 	}
 	
+	public void Teste() {
+		System.out.println("teste");
+	}
+	
 	public List<ExameVo> trazerTodosOsExames(){
 		return dao.findAllExames();
 	}	
