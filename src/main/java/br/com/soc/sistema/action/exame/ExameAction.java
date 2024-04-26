@@ -23,7 +23,7 @@ public class ExameAction extends Action {
 	}
 	
 	public void teste() {
-		System.out.println("teste");
+		System.out.println("test");
 	}
 	
 	public String filtrar() {
