@@ -33,6 +33,14 @@
 					</s:form>			
 				</div>				
 			</div>
+			
+			<div class="row" style="justify-content: center;
+									background: white;
+								    font-weight: bold;
+								    padding: 5px 0px 5px 0px;
+								    border-bottom: 2px solid currentColor;">
+				<s:text name="label.titulo.pagina.consulta"/>
+			</div>
 
 			<div class="row">
 				<table class="table table-light table-striped align-middle">
@@ -73,6 +81,12 @@
 								
 								<a href="${novo}" class="btn btn-success">
 									<s:text name="label.novo"/>
+								</a>
+								
+								<s:url action="todosFuncionarios" var="funcionarios"/>
+								
+								<a href="${funcionarios}" class="btn btn-primary" style="float: right">
+									<s:text name="label.funcionarios"/>
 								</a>
 							</td>
 						</tr>
