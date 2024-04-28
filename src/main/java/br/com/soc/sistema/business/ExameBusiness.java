@@ -26,11 +26,25 @@ public class ExameBusiness {
 			if(exameVo.getNome().isEmpty())
 				throw new IllegalArgumentException("Nome nao pode ser em branco");
 			
-			dao.insertExame(exameVo);
+			if(exameVo.getRowid().isEmpty()) {
+				dao.insertExame(exameVo);
+			} 
+			else {
+				dao.editExame(exameVo);
+			}
+			
 		} catch (Exception e) {
 			throw new BusinessException("Nao foi possivel realizar a inclusao do registro");
 		}
-		
+	}	
+	
+	public void excluirExame(String codigo) {
+		try {
+			Integer cod = Integer.parseInt(codigo);
+			dao.deleteExame(cod);
+		} catch (Exception e) {
+			throw new BusinessException("Nao foi possivel realizar a exclusão do registro");
+		}
 	}	
 	
 	public List<ExameVo> filtrarExames(ExameFilter filter){

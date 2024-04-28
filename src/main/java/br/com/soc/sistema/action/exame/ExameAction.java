@@ -34,7 +34,7 @@ public class ExameAction extends Action {
 	public String novo() {
 		if(exameVo.getNome() == null)
 			return INPUT;
-		
+
 		business.salvarExame(exameVo);
 		
 		return REDIRECT;
@@ -47,6 +47,13 @@ public class ExameAction extends Action {
 		exameVo = business.buscarExamePor(exameVo.getRowid());
 		
 		return INPUT;
+	}
+	
+	public String excluir() {
+
+		business.excluirExame(exameVo.getRowid());
+		
+		return REDIRECT;
 	}
 	
 	public List<OpcoesComboBuscarExames> getListaOpcoesCombo(){

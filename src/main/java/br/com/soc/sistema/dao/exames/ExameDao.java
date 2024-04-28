@@ -27,6 +27,34 @@ public class ExameDao extends Dao {
 		}
 	}
 	
+	public void deleteExame(Integer codigo) {
+	    StringBuilder query = new StringBuilder("DELETE FROM exame WHERE rowid = ?");
+	    try (
+	        Connection con = getConexao();
+	        PreparedStatement ps = con.prepareStatement(query.toString())
+	    ) {
+	        ps.setInt(1, codigo);
+	        ps.executeUpdate();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	}
+	
+	public void editExame(ExameVo exameVo){
+		StringBuilder query = new StringBuilder("UPDATE exame SET nm_exame = ? WHERE rowid = ?");
+		try(
+			Connection con = getConexao();
+			PreparedStatement  ps = con.prepareStatement(query.toString())){
+			
+			int i=1;
+			ps.setString(i++, exameVo.getNome());
+			ps.setInt(i++, Integer.parseInt(exameVo.getRowid()));
+			ps.executeUpdate();
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public List<ExameVo> findAllExames(){
 		StringBuilder query = new StringBuilder("SELECT rowid id, nm_exame nome FROM exame");
 		try(
