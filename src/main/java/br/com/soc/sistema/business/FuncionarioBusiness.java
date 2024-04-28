@@ -5,7 +5,7 @@ import java.util.List;
 
 import br.com.soc.sistema.dao.funcionarios.FuncionarioDao;
 import br.com.soc.sistema.exception.BusinessException;
-import br.com.soc.sistema.filter.FuncionarioFilter;
+import br.com.soc.sistema.filter.Filter;
 import br.com.soc.sistema.vo.FuncionarioVo;
 
 public class FuncionarioBusiness {
@@ -47,7 +47,7 @@ public class FuncionarioBusiness {
 		}
 	}	
 	
-	public List<FuncionarioVo> filtrarFuncionarios(FuncionarioFilter filter){
+	public List<FuncionarioVo> filtrarFuncionarios(Filter filter){
 		List<FuncionarioVo> funcionarios = new ArrayList<>();
 		
 		switch (filter.getOpcoesCombo()) {

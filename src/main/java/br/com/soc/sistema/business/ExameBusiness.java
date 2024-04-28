@@ -5,7 +5,7 @@ import java.util.List;
 
 import br.com.soc.sistema.dao.exames.ExameDao;
 import br.com.soc.sistema.exception.BusinessException;
-import br.com.soc.sistema.filter.ExameFilter;
+import br.com.soc.sistema.filter.Filter;
 import br.com.soc.sistema.vo.ExameVo;
 
 public class ExameBusiness {
@@ -47,7 +47,7 @@ public class ExameBusiness {
 		}
 	}	
 	
-	public List<ExameVo> filtrarExames(ExameFilter filter){
+	public List<ExameVo> filtrarExames(Filter filter){
 		List<ExameVo> exames = new ArrayList<>();
 		
 		switch (filter.getOpcoesCombo()) {

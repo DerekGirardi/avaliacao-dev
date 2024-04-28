@@ -5,15 +5,15 @@ import java.util.Arrays;
 import java.util.List;
 
 import br.com.soc.sistema.business.FuncionarioBusiness;
-import br.com.soc.sistema.filter.FuncionarioFilter;
+import br.com.soc.sistema.filter.Filter;
 import br.com.soc.sistema.infra.Action;
-import br.com.soc.sistema.infra.OpcoesComboBuscarFuncionarios;
+import br.com.soc.sistema.infra.OpcoesComboBuscar;
 import br.com.soc.sistema.vo.FuncionarioVo;
 
 public class FuncionarioAction extends Action {
 	private List<FuncionarioVo> funcionarios = new ArrayList<>();
 	private FuncionarioBusiness business = new FuncionarioBusiness();
-	private FuncionarioFilter filtrar = new FuncionarioFilter();
+	private Filter filtrar = new Filter();
 	private FuncionarioVo funcionarioVo = new FuncionarioVo();
 	
 	public String todos() {
@@ -56,8 +56,8 @@ public class FuncionarioAction extends Action {
 		return REDIRECT;
 	}
 	
-	public List<OpcoesComboBuscarFuncionarios> getListaOpcoesCombo(){
-		return Arrays.asList(OpcoesComboBuscarFuncionarios.values());
+	public List<OpcoesComboBuscar> getListaOpcoesCombo(){
+		return Arrays.asList(OpcoesComboBuscar.values());
 	}
 	
 	public List<FuncionarioVo> getFuncionarios() {
@@ -68,11 +68,11 @@ public class FuncionarioAction extends Action {
 		this.funcionarios = funcionarios;
 	}
 
-	public FuncionarioFilter getFiltrar() {
+	public Filter getFiltrar() {
 		return filtrar;
 	}
 
-	public void setFiltrar(FuncionarioFilter filtrar) {
+	public void setFiltrar(Filter filtrar) {
 		this.filtrar = filtrar;
 	}
 

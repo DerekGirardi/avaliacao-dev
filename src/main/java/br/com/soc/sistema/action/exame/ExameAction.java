@@ -5,15 +5,15 @@ import java.util.Arrays;
 import java.util.List;
 
 import br.com.soc.sistema.business.ExameBusiness;
-import br.com.soc.sistema.filter.ExameFilter;
+import br.com.soc.sistema.filter.Filter;
 import br.com.soc.sistema.infra.Action;
-import br.com.soc.sistema.infra.OpcoesComboBuscarExames;
+import br.com.soc.sistema.infra.OpcoesComboBuscar;
 import br.com.soc.sistema.vo.ExameVo;
 
 public class ExameAction extends Action {
 	private List<ExameVo> exames = new ArrayList<>();
 	private ExameBusiness business = new ExameBusiness();
-	private ExameFilter filtrar = new ExameFilter();
+	private Filter filtrar = new Filter();
 	private ExameVo exameVo = new ExameVo();
 	
 	public String todos() {
@@ -56,8 +56,8 @@ public class ExameAction extends Action {
 		return REDIRECT;
 	}
 	
-	public List<OpcoesComboBuscarExames> getListaOpcoesCombo(){
-		return Arrays.asList(OpcoesComboBuscarExames.values());
+	public List<OpcoesComboBuscar> getListaOpcoesCombo(){
+		return Arrays.asList(OpcoesComboBuscar.values());
 	}
 	
 	public List<ExameVo> getExames() {
@@ -68,11 +68,11 @@ public class ExameAction extends Action {
 		this.exames = exames;
 	}
 
-	public ExameFilter getFiltrar() {
+	public Filter getFiltrar() {
 		return filtrar;
 	}
 
-	public void setFiltrar(ExameFilter filtrar) {
+	public void setFiltrar(Filter filtrar) {
 		this.filtrar = filtrar;
 	}
 
