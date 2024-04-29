@@ -23,6 +23,12 @@
             <result name="input">/funcionario/cadFuncionario_i.jsp</result>
         	<result name="redirect" type="redirectAction">todosFuncionarios</result>
         </action>
+        
+        <action name="*ExamesRealizados" class="br.com.soc.sistema.action.realizados.ExamesRealizadosAction" method="{1}">
+        	<result name="success">/realizados/cadExamesRealizados_b.jsp</result>
+            <result name="input">/realizados/cadExamesRealizados_i.jsp</result>
+        	<result name="redirect" type="redirectAction">todosExamesRealizados</result>
+        </action>
     </package>
 
 </struts>

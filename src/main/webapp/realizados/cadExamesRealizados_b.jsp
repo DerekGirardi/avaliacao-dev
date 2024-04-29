@@ -11,7 +11,7 @@
 		<div class="container">
 			<div class="row mt-5 mb-2">
 				<div class="col-sm p-0">
-					<s:form action="/filtrarFuncionarios.action">
+					<s:form action="/filtrarExamesRealizados.action">
 						<div class="input-group">
 							<span class="input-group-text">
 								<strong><s:text name="label.buscar.por"/></strong>
@@ -47,26 +47,30 @@
 					<thead>
 						<tr>
 							<th><s:text name="label.id"/></th>
-							<th><s:text name="label.nome"/></th>
+							<th><s:text name="label.codigoExame"/></th>
+							<th><s:text name="label.codigoFuncionario"/></th>
+							<th><s:text name="label.data"/></th>
 							<th class="text-end mt-5"><s:text name="label.acao"/></th>
 						</tr>
 					</thead>
 					
 					<tbody>
-						<s:iterator value="funcionarios" >
+						<s:iterator value="examesRealizados" >
 							<tr>
-								<td>${rowid}</td>
-								<td>${nome}</td>
+								<td>${id}</td>
+								<td>${exameid}</td>
+								<td>${funcionarioid}</td>
+								<td>${data}</td>
 								<td class="text-end">
-									<s:url action="editarFuncionarios" var="editar">
-										<s:param name="funcionarioVo.rowid" value="rowid"></s:param>
+									<s:url action="editarExamesRealizados" var="editar">
+										<s:param name="exameRealizadoVo.id" value="id"></s:param>
 									</s:url>
 
 									<a href="${editar}" class="btn btn-warning text-white">
 										<s:text name="label.editar"/>
 									</a>
 
-									<a href="#" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmarExclusao${rowid}">
+									<a href="#" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmarExclusao${id}">
 										<s:text name="label.excluir"/>
 									</a>
 								</td>
@@ -76,8 +80,8 @@
 					
 					<tfoot class="table-secondary">
 						<tr>
-							<td colspan="3" style="text-align: left">
-								<s:url action="novoFuncionarios" var="novo"/>
+							<td colspan="5" style="text-align: left">
+								<s:url action="novoExamesRealizados" var="novo"/>
 								
 								<a href="${novo}" class="btn btn-success" style="position: fixed">
 									<s:text name="label.adicionar"/>
@@ -92,13 +96,13 @@
 									
 									<s:url action="todosFuncionarios" var="funcionarios"/>
 									
-									<a href="${funcionarios}" class="btn btn-primary" style="background-color: #0032C1;cursor: default;pointer-events: none;">
+									<a href="${funcionarios}" class="btn btn-primary">
 										<s:text name="label.funcionarios"/>
 									</a>
 									
 									<s:url action="todosExamesRealizados" var="examesRealizados"/>
 									
-									<a href="${examesRealizados}" class="btn btn-primary">
+									<a href="${examesRealizados}" class="btn btn-primary" style="background-color: #0032C1;cursor: default;pointer-events: none;">
 										<s:text name="label.examesRealizados"/>
 									</a>
 								</div>
@@ -113,8 +117,8 @@
 			</div>
 		</div>
 		
-		<s:iterator value="funcionarios">
-			<div class="modal fade" id="confirmarExclusao${rowid}" 
+		<s:iterator value="examesRealizados">
+			<div class="modal fade" id="confirmarExclusao${id}" 
 		    	data-bs-backdrop="static" data-bs-keyboard="false"
 		    	tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 		    <div class="modal-dialog" role="document">
@@ -134,7 +138,7 @@
 		            		<s:text name="label.nao"/>
 		          		</a>
 		          		
-		          		<a href="<s:url action='excluirFuncionarios'/>?funcionarioVo.rowid=${rowid}" class="btn btn-primary">
+		          		<a href="<s:url action='excluirExamesRealizados'/>?exameRealizadoVo.id=${id}" class="btn btn-primary">
 		            		<s:text name="label.sim"/>
 		          		</a>
 		        	</div>
