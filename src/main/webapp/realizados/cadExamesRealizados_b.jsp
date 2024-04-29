@@ -48,7 +48,9 @@
 						<tr>
 							<th><s:text name="label.id"/></th>
 							<th><s:text name="label.codigoExame"/></th>
+							<th><s:text name="label.nomeExame"/></th>
 							<th><s:text name="label.codigoFuncionario"/></th>
+							<th><s:text name="label.nomeFuncionario"/></th>
 							<th><s:text name="label.data"/></th>
 							<th class="text-end mt-5"><s:text name="label.acao"/></th>
 						</tr>
@@ -59,7 +61,9 @@
 							<tr>
 								<td>${id}</td>
 								<td>${exameid}</td>
+								<td><s:property value="getNomeExamePorId(exameid)" default="-" /></td>
 								<td>${funcionarioid}</td>
+								<td><s:property value="getNomeFuncionarioPorId(funcionarioid)" default="-" /></td>
 								<td>${data}</td>
 								<td class="text-end">
 									<s:url action="editarExamesRealizados" var="editar">
@@ -80,7 +84,7 @@
 					
 					<tfoot class="table-secondary">
 						<tr>
-							<td colspan="5" style="text-align: left">
+							<td colspan="7" style="text-align: left">
 								<s:url action="novoExamesRealizados" var="novo"/>
 								
 								<a href="${novo}" class="btn btn-success" style="position: fixed">

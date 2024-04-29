@@ -6,7 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import br.com.soc.sistema.business.ExameBusiness;
 import br.com.soc.sistema.business.ExamesRealizadosBusiness;
+import br.com.soc.sistema.business.FuncionarioBusiness;
 import br.com.soc.sistema.filter.ExamesRealizadosFilter;
 import br.com.soc.sistema.infra.Action;
 import br.com.soc.sistema.infra.OpcoesCombo.BuscarExamesRealizados;
@@ -17,12 +19,14 @@ import br.com.soc.sistema.vo.FuncionarioVo;
 public class ExamesRealizadosAction extends Action {
 	private List<ExameRealizadoVo> examesRealizados = new ArrayList<>();
 	private ExamesRealizadosBusiness business = new ExamesRealizadosBusiness();
+	private ExameBusiness exameBusiness = new ExameBusiness();
+	private FuncionarioBusiness funcionarioBusiness = new FuncionarioBusiness();
 	private ExamesRealizadosFilter filtrar = new ExamesRealizadosFilter();
 	private ExameRealizadoVo exameRealizadoVo = new ExameRealizadoVo();
 	
 	public String todos() {
 		examesRealizados.addAll(business.trazerTodosOsExamesRealizados());	
-
+		
 		return SUCCESS;
 	}
 	
@@ -62,6 +66,14 @@ public class ExamesRealizadosAction extends Action {
 		return REDIRECT;
 	}
 	
+	public String getNomeExamePorId(String id) {
+		return exameBusiness.buscarExamePor(id).getNome();
+	}
+	
+	public String getNomeFuncionarioPorId(String id) {
+		return funcionarioBusiness.buscarFuncionarioPor(id).getNome();
+	}
+	
 	public List<BuscarExamesRealizados> getListaOpcoesCombo(){
 		return Arrays.asList(BuscarExamesRealizados.values());
 	}
@@ -69,7 +81,7 @@ public class ExamesRealizadosAction extends Action {
 	public Map<String, String> getListaExames() {
 	    Map<String, String> examesMap = new HashMap<>();
 	    
-	    for (ExameVo exame : business.trazerTodosOsExames()) {
+	    for (ExameVo exame : exameBusiness.trazerTodosOsExames()) {
 	        examesMap.put(exame.getRowid(), exame.getNome());
 	    }
 	    return examesMap;
@@ -78,7 +90,7 @@ public class ExamesRealizadosAction extends Action {
 	public Map<String, String> getListaFuncionarios() {
 	    Map<String, String> funcionariosMap = new HashMap<>();
 	    
-	    for (FuncionarioVo funcionario : business.trazerTodosOsFuncionarios()) {
+	    for (FuncionarioVo funcionario : funcionarioBusiness.trazerTodosOsFuncionarios()) {
 	    	funcionariosMap.put(funcionario.getRowid(), funcionario.getNome());
 	    }
 	    return funcionariosMap;

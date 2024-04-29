@@ -3,39 +3,23 @@ package br.com.soc.sistema.business;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.soc.sistema.dao.exames.ExameDao;
-import br.com.soc.sistema.dao.funcionarios.FuncionarioDao;
 import br.com.soc.sistema.dao.realizados.ExameRealizadoDao;
 import br.com.soc.sistema.exception.BusinessException;
 import br.com.soc.sistema.filter.ExamesRealizadosFilter;
 import br.com.soc.sistema.vo.ExameRealizadoVo;
-import br.com.soc.sistema.vo.ExameVo;
-import br.com.soc.sistema.vo.FuncionarioVo;
 
 public class ExamesRealizadosBusiness {
 
 	private static final String FOI_INFORMADO_CARACTER_NO_LUGAR_DE_UM_NUMERO = "Foi informado um caracter no lugar de um numero";
 	private ExameRealizadoDao dao;
-	private ExameDao exameDao;
-	private FuncionarioDao funcionarioDao;
 	
 	public ExamesRealizadosBusiness() {
 		this.dao = new ExameRealizadoDao();
-		this.exameDao = new ExameDao();
-		this.funcionarioDao = new FuncionarioDao();
 	}
 	
 	public List<ExameRealizadoVo> trazerTodosOsExamesRealizados() {
 		return dao.findAllExamesRealizados();
 	}	
-	
-	public List<ExameVo> trazerTodosOsExames() {
-		return exameDao.findAllExames();
-	}	
-	
-	public List<FuncionarioVo> trazerTodosOsFuncionarios() {
-		return funcionarioDao.findAllFuncionarios();
-	}
 	
 	public void salvarExameRealizado(ExameRealizadoVo exameRealizadoVo) {
 		try {
@@ -106,7 +90,7 @@ public class ExamesRealizadosBusiness {
 			break;
 			
 			case DATA:
-				//examesRealizados.add(dao.findAllByData(filter.getValorBusca()));
+				examesRealizados.add(dao.findAllByData(filter.getValorBusca()));
 			break;
 		}
 		

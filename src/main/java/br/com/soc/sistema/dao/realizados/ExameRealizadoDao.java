@@ -146,7 +146,7 @@ public class ExameRealizadoDao extends Dao {
 	
 	public ExameRealizadoVo findByCodigoExame(Integer codigo) {
 		StringBuilder query = new StringBuilder("SELECT id, id_exame, id_funcionario, data FROM exames_realizados ")
-								.append("WHERE id_exame IN (SELECT rowid FROM exame WHERE rowid = ?)");
+								.append("WHERE id_exame = ?");
 		
 		try(Connection con = getConexao();
 			PreparedStatement ps = con.prepareStatement(query.toString())){
@@ -204,8 +204,8 @@ public class ExameRealizadoDao extends Dao {
 	}
 	
 	public ExameRealizadoVo findByCodigoFuncionario(Integer codigo) {
-		StringBuilder query = new StringBuilder("SELECT rowid id, nm_exame data FROM exames_realizados ")
-								.append("WHERE id_exame IN (SELECT rowid FROM exame WHERE rowid = ?)");
+		StringBuilder query = new StringBuilder("SELECT id, id_exame, id_funcionario, data FROM exames_realizados ")
+								.append("WHERE id_funcionario = ?");
 		
 		try(Connection con = getConexao();
 			PreparedStatement ps = con.prepareStatement(query.toString())){
@@ -231,32 +231,31 @@ public class ExameRealizadoDao extends Dao {
 		return null;
 	}
 	
-	/*public ExameRealizadoVo findAllByData(String data) {
-	    try {
-	        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-	        StringBuilder query = new StringBuilder("SELECT id, id_exame, id_funcionario, nome FROM exames_realizados ")
-	                                    .append("WHERE nome = ?");
-
-	        try(Connection con = getConexao();
-	            PreparedStatement ps = con.prepareStatement(query.toString())) {
-	            ps.setString(1, new java.sql.Date(dateFormat.parse(data).getTime()));
-
-	            try(ResultSet rs = ps.executeQuery()) {
-	                ExameRealizadoVo vo = null;
-	                if (rs.next()) {
-	                    vo = new ExameRealizadoVo();
-	                    vo.setId(rs.getString("id"));
-	                    vo.setExameid(rs.getString("id_exame"));
-	                    vo.setFuncionarioid(rs.getString("id_funcionario"));
-	                    vo.setData(rs.getString("nome"));getData               }
-	                return vo;
-	            }
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	        }
-	    } catch (ParseException e) {
-	        e.printStackTrace();
-	    }
-	    return null;
-	}*/
+	public ExameRealizadoVo findAllByData(String data) {
+		StringBuilder query = new StringBuilder("SELECT id, id_exame, id_funcionario, data FROM exames_realizados ")
+								.append("WHERE data = ?");
+		
+		try(Connection con = getConexao();
+			PreparedStatement ps = con.prepareStatement(query.toString())){
+			int i = 1;
+			
+			ps.setString(i, data);
+			
+			try(ResultSet rs = ps.executeQuery()){
+				ExameRealizadoVo vo =  null;
+				
+				while (rs.next()) {
+					vo = new ExameRealizadoVo();
+					vo.setId(rs.getString("id"));
+					vo.setExameid(rs.getString("id_exame"));
+					vo.setFuncionarioid(rs.getString("id_funcionario"));
+					vo.setData(rs.getString("data"));
+				}
+				return vo;
+			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}		
+		return null;
+	}
 }
