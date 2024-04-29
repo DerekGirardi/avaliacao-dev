@@ -28,18 +28,28 @@ public class ExameDao extends Dao {
 	}
 	
 	public void deleteExame(Integer codigo) {
-	    StringBuilder query = new StringBuilder("DELETE FROM exame WHERE rowid = ?");
+	    String queryVerificacao = "SELECT COUNT(*) FROM exames_realizados WHERE id_exame = ?";
+	    String queryExclusaoExame = "DELETE FROM exame WHERE rowid = ?";
 	    try (
 	        Connection con = getConexao();
-	        PreparedStatement ps = con.prepareStatement(query.toString())
+	        PreparedStatement psVerificacao = con.prepareStatement(queryVerificacao);
+	        PreparedStatement psExclusaoExame = con.prepareStatement(queryExclusaoExame);
 	    ) {
-	        ps.setInt(1, codigo);
-	        ps.executeUpdate();
+	        psVerificacao.setInt(1, codigo);
+	        try (ResultSet rs = psVerificacao.executeQuery()) {
+	            if (rs.next() && rs.getInt(1) > 0) {
+	                System.out.println("Não é possível excluir o exame porque foi realizado por um ou mais funcionários.");
+	                return;
+	            }
+	        }
+
+	        psExclusaoExame.setInt(1, codigo);
+	        psExclusaoExame.executeUpdate();
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	    }
 	}
-	
+
 	public void editExame(ExameVo exameVo){
 		StringBuilder query = new StringBuilder("UPDATE exame SET nm_exame = ? WHERE rowid = ?");
 		try(

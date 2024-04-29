@@ -28,17 +28,23 @@ public class FuncionarioDao extends Dao {
 	}
 	
 	public void deleteFuncionario(Integer codigo) {
-	    StringBuilder query = new StringBuilder("DELETE FROM funcionario WHERE rowid = ?");
+	    StringBuilder queryExames = new StringBuilder("DELETE FROM exames_realizados WHERE id_funcionario = ?");
+	    StringBuilder queryFuncionario = new StringBuilder("DELETE FROM funcionario WHERE rowid = ?");
 	    try (
 	        Connection con = getConexao();
-	        PreparedStatement ps = con.prepareStatement(query.toString())
+	        PreparedStatement psExames = con.prepareStatement(queryExames.toString());
+	        PreparedStatement psFuncionario = con.prepareStatement(queryFuncionario.toString());
 	    ) {
-	        ps.setInt(1, codigo);
-	        ps.executeUpdate();
+	        psExames.setInt(1, codigo);
+	        psExames.executeUpdate();
+
+	        psFuncionario.setInt(1, codigo);
+	        psFuncionario.executeUpdate();
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	    }
 	}
+
 	
 	public void editFuncionario(FuncionarioVo funcionarioVo){
 		StringBuilder query = new StringBuilder("UPDATE funcionario SET nm_funcionario = ? WHERE rowid = ?");

@@ -14,17 +14,28 @@ import br.com.soc.sistema.vo.ExameRealizadoVo;
 public class ExameRealizadoDao extends Dao {
 	
 	public void insertExameRealizado(ExameRealizadoVo exameRealizadoVo) {
-	    StringBuilder query = new StringBuilder("INSERT INTO exames_realizados (id_funcionario, id_exame, data) VALUES (?, ?, ?)");
-	    try(
+	    String queryVerificacao = "SELECT COUNT(*) FROM exames_realizados WHERE id_funcionario = ? AND id_exame = ? AND data = ?";
+	    String queryInsercao = "INSERT INTO exames_realizados (id_funcionario, id_exame, data) VALUES (?, ?, ?)";
+	    try (
 	        Connection con = getConexao();
-	        PreparedStatement ps = con.prepareStatement(query.toString())
-	    ){
-	        int i=1;
-	        ps.setInt(i++, Integer.parseInt(exameRealizadoVo.getFuncionarioid()));
-	        ps.setInt(i++, Integer.parseInt(exameRealizadoVo.getExameid()));
-	        ps.setString(i++, exameRealizadoVo.getData());
-	        ps.executeUpdate();
-	    }catch (SQLException e) {
+	        PreparedStatement psVerificacao = con.prepareStatement(queryVerificacao);
+	        PreparedStatement psInsercao = con.prepareStatement(queryInsercao);
+	    ) {
+	        psVerificacao.setInt(1, Integer.parseInt(exameRealizadoVo.getFuncionarioid()));
+	        psVerificacao.setInt(2, Integer.parseInt(exameRealizadoVo.getExameid()));
+	        psVerificacao.setString(3, exameRealizadoVo.getData());
+
+	        try (ResultSet rs = psVerificacao.executeQuery()) {
+	            if (rs.next() && rs.getInt(1) > 0) {
+	                System.out.println("Não é possível cadastrar o exame realizado porque já existe um registro com as mesmas informações.");
+	                return;
+	            }
+	        }
+	        psInsercao.setInt(1, Integer.parseInt(exameRealizadoVo.getFuncionarioid()));
+	        psInsercao.setInt(2, Integer.parseInt(exameRealizadoVo.getExameid()));
+	        psInsercao.setString(3, exameRealizadoVo.getData());
+	        psInsercao.executeUpdate();
+	    } catch (SQLException e) {
 	        e.printStackTrace();
 	    }
 	}
