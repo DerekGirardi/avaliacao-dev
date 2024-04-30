@@ -28,18 +28,28 @@ public class ExamesRealizadosBusiness {
 				|| exameRealizadoVo.getData() == null)
 				throw new IllegalArgumentException("Os campos nao podem estar em branco");
 			
-			if(exameRealizadoVo.getId().isEmpty()) {
-				dao.insertExameRealizado(exameRealizadoVo);
-			} 
-			else {
-				dao.editExameRealizado(exameRealizadoVo);
-			}
-			
+			dao.insertExameRealizado(exameRealizadoVo);
+
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			throw new BusinessException("Nao foi possivel realizar a inclusao do registro");
 		}
 	}	
+	
+	public void editarExameRealizado(ExameRealizadoVo exameRealizadoVo) {
+		try {
+			if(exameRealizadoVo.getExameid().isEmpty() 
+				|| exameRealizadoVo.getFuncionarioid().isEmpty() 
+				|| exameRealizadoVo.getData() == null)
+				throw new IllegalArgumentException("Os campos nao podem estar em branco");
+
+			dao.editExameRealizado(exameRealizadoVo);
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			throw new BusinessException("Nao foi possivel realizar a inclusao do registro");
+		}
+	}
 	
 	public void excluirExameRealizado(String codigo) {
 		try {

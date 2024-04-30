@@ -35,7 +35,10 @@ public class ExameAction extends Action {
 		if(exameVo.getNome() == null)
 			return INPUT;
 
-		business.salvarExame(exameVo);
+		if(exameVo.getRowid().isEmpty())
+			business.salvarExame(exameVo);
+		else
+			business.editarExame(exameVo);
 		
 		return REDIRECT;
 	}

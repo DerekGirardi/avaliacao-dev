@@ -45,7 +45,10 @@ public class ExamesRealizadosAction extends Action {
 			|| exameRealizadoVo.getData() == null)
 			return INPUT;
 
-		business.salvarExameRealizado(exameRealizadoVo);
+		if(exameRealizadoVo.getId().isEmpty())
+			business.salvarExameRealizado(exameRealizadoVo);
+		else 
+			business.editarExameRealizado(exameRealizadoVo);
 		
 		return REDIRECT;
 	}

@@ -25,18 +25,25 @@ public class ExameBusiness {
 		try {
 			if(exameVo.getNome().isEmpty())
 				throw new IllegalArgumentException("Nome nao pode ser em branco");
-			
-			if(exameVo.getRowid().isEmpty()) {
-				dao.insertExame(exameVo);
-			} 
-			else {
-				dao.editExame(exameVo);
-			}
+
+			dao.insertExame(exameVo);
 			
 		} catch (Exception e) {
 			throw new BusinessException("Nao foi possivel realizar a inclusao do registro");
 		}
-	}	
+	}
+	
+	public void editarExame(ExameVo exameVo) {
+		try {
+			if(exameVo.getNome().isEmpty())
+				throw new IllegalArgumentException("Nome nao pode ser em branco");
+			
+			dao.editExame(exameVo);
+			
+		} catch (Exception e) {
+			throw new BusinessException("Nao foi possivel realizar a inclusao do registro");
+		}
+	}
 	
 	public void excluirExame(String codigo) {
 		try {
