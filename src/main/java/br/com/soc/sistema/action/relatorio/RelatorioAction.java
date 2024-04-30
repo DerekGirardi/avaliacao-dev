@@ -49,7 +49,7 @@ public class RelatorioAction extends Action {
 		        return REDIRECT;
 		    }
 		}
-		return REDIRECT;
+		return REPORT;
 	}
 	
 	public String indicadores() {
@@ -82,7 +82,7 @@ public class RelatorioAction extends Action {
 		        return REDIRECT;
 		    }
 		}
-		return REDIRECT;
+		return INDICATOR;
 	}
 	
 	public Map<Boolean, String> getOutputList() {

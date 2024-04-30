@@ -4,4 +4,6 @@ import com.opensymphony.xwork2.ActionSupport;
 
 public class Action extends ActionSupport {
 	public static final String REDIRECT = "redirect";
+	public static final String REPORT = "report";
+	public static final String INDICATOR = "indicator";
 }

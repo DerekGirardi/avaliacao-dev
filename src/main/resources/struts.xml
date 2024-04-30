@@ -33,6 +33,8 @@
         
         <action name="*Relatorio" class="br.com.soc.sistema.action.relatorio.RelatorioAction" method="{1}">
         	<result name="success">/relatorio/Relatorio_i.jsp</result>
+        	<result name="report">/relatorio/RelatorioExames_b.jsp</result>
+        	<result name="indicator">/relatorio/RelatorioIndicadores_b.jsp</result>
         	<result name="redirect" type="redirectAction">Relatorio</result>
         </action>
     </package>

@@ -58,41 +58,54 @@ public class RelatorioDao extends Dao {
 	    return null;
 	}
 	
-	public Workbook gerarExcelIndicadores(String dataInicial, String dataFinal) {
-	    String query = "SELECT e.nm_exame, COUNT(*) as total_realizados " +
-	            "FROM exame e " +
-	            "JOIN exames_realizados er ON e.rowid = er.id_exame " +
-	            "WHERE er.data BETWEEN ? AND ? " +
-	            "GROUP BY e.nm_exame " +
-	            "ORDER BY total_realizados DESC " +
-	            "LIMIT 5";
-	    
-	    try (Connection con = getConexao();
-	         PreparedStatement ps = con.prepareStatement(query)) {
+    public Workbook gerarExcelIndicadores(String dataInicial, String dataFinal) {
+        String query = "SELECT e.nm_exame, COUNT(*) as total_realizados " +
+                "FROM exame e " +
+                "JOIN exames_realizados er ON e.rowid = er.id_exame " +
+                "WHERE er.data BETWEEN ? AND ? " +
+                "GROUP BY e.nm_exame " +
+                "ORDER BY total_realizados DESC " +
+                "LIMIT 5";
+        
+        try (Connection con = getConexao();
+             PreparedStatement ps = con.prepareStatement(query)) {
+            
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            ps.setDate(1, new java.sql.Date(dateFormat.parse(dataInicial).getTime()));
+            ps.setDate(2, new java.sql.Date(dateFormat.parse(dataFinal).getTime()));
+            
+            try (ResultSet rs = ps.executeQuery()) {
+                Workbook workbook = new XSSFWorkbook();
+                Sheet sheet = workbook.createSheet("Relatório de Indicadores");
 
-	        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-	        ps.setDate(1, new java.sql.Date(dateFormat.parse(dataInicial).getTime()));
-	        ps.setDate(2, new java.sql.Date(dateFormat.parse(dataFinal).getTime()));
+                Row dataInicialRow = sheet.createRow(0);
+                dataInicialRow.createCell(0).setCellValue("Data Inicial:");
+                dataInicialRow.createCell(1).setCellValue(dataInicial);
+                
+                Row dataFinalRow = sheet.createRow(1);
+                dataFinalRow.createCell(0).setCellValue("Data Final:");
+                dataFinalRow.createCell(1).setCellValue(dataFinal);
 
-	        try (ResultSet rs = ps.executeQuery()) {
-	            Workbook workbook = new XSSFWorkbook();
-	            Sheet sheet = workbook.createSheet("Indicadores de Exames Realizados");
+                Row headerRow = sheet.createRow(3);
+                headerRow.createCell(0).setCellValue("Nome do Exame");
+                headerRow.createCell(1).setCellValue("Total Realizados");
+                
+                int rowNum = 4;
 
-	            Row headerRow = sheet.createRow(0);
-	            headerRow.createCell(0).setCellValue("Nome do Exame");
-	            headerRow.createCell(1).setCellValue("Total Realizados");
+                while (rs.next()) {
+                    Row row = sheet.createRow(rowNum++);
+                    row.createCell(0).setCellValue(rs.getString("nm_exame"));
+                    row.createCell(1).setCellValue(rs.getInt("total_realizados"));
+                }
 
-	            int rowNum = 1;
-	            while (rs.next()) {
-	                Row row = sheet.createRow(rowNum++);
-	                row.createCell(0).setCellValue(rs.getString("nm_exame"));
-	                row.createCell(1).setCellValue(rs.getInt("total_realizados"));
-	            }
-	            return workbook;
-	        }
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    }
-	    return null;
-	}
+                sheet.autoSizeColumn(0);
+                sheet.autoSizeColumn(1);
+                
+                return workbook;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
