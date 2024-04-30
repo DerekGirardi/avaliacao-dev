@@ -1,5 +1,8 @@
 package br.com.soc.sistema.action.relatorio;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
@@ -8,40 +11,87 @@ import org.apache.struts2.ServletActionContext;
 
 import br.com.soc.sistema.business.RelatorioBusiness;
 import br.com.soc.sistema.infra.Action;
+import br.com.soc.sistema.vo.ExameVo;
 
 public class RelatorioAction extends Action {
 	private RelatorioBusiness business = new RelatorioBusiness();
 	private String dataInicial = null;
 	private String dataFinal = null;
+	private Boolean output = false;
 	
 	public String gerar() {
-	    if (dataInicial == null || dataFinal == null)
-	        return REDIRECT;
+		if(output) {
+		    if (dataInicial == null || dataFinal == null)
+		        return REDIRECT;
 
-	    Workbook workbook = business.gerarRelatorio(dataInicial, dataFinal);
+		    Workbook workbook = business.gerarRelatorio(dataInicial, dataFinal);
 
-	    if (workbook != null) {
-	        try {
-	            byte[] bytesDoExcel = business.workbookToBytes(workbook);
+		    if (workbook != null) {
+		        try {
+		            byte[] bytesDoExcel = business.workbookToBytes(workbook);
 
-	            HttpServletResponse response = ServletActionContext.getResponse();
+		            HttpServletResponse response = ServletActionContext.getResponse();
 
-	            response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-	            response.setHeader("Content-Disposition", "attachment; filename=relatorio.xlsx");
+		            response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+		            response.setHeader("Content-Disposition", "attachment; filename=relatorio.xlsx");
 
-	            ServletOutputStream outputStream = response.getOutputStream();
-	            outputStream.write(bytesDoExcel);
+		            ServletOutputStream outputStream = response.getOutputStream();
+		            outputStream.write(bytesDoExcel);
 
-	            outputStream.flush();
-	            outputStream.close();
-	        } catch (Exception e) {
-	            e.printStackTrace();
-	        }
+		            outputStream.flush();
+		            outputStream.close();
+		        } catch (Exception e) {
+		            e.printStackTrace();
+		        }
 
-	        return SUCCESS;
-	    } else {
-	        return REDIRECT;
-	    }
+		        return SUCCESS;
+		    } else {
+		        return REDIRECT;
+		    }
+		}
+		return REDIRECT;
+	}
+	
+	public String indicadores() {
+		if(output) {
+		    if (dataInicial == null || dataFinal == null)
+		        return REDIRECT;
+
+		    Workbook workbook = business.gerarIndicadores(dataInicial, dataFinal);
+
+		    if (workbook != null) {
+		        try {
+		            byte[] bytesDoExcel = business.workbookToBytes(workbook);
+
+		            HttpServletResponse response = ServletActionContext.getResponse();
+
+		            response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+		            response.setHeader("Content-Disposition", "attachment; filename=indicadores.xlsx");
+
+		            ServletOutputStream outputStream = response.getOutputStream();
+		            outputStream.write(bytesDoExcel);
+
+		            outputStream.flush();
+		            outputStream.close();
+		        } catch (Exception e) {
+		            e.printStackTrace();
+		        }
+
+		        return SUCCESS;
+		    } else {
+		        return REDIRECT;
+		    }
+		}
+		return REDIRECT;
+	}
+	
+	public Map<Boolean, String> getOutputList() {
+	    Map<Boolean, String> outputMap = new HashMap<>();
+	    
+	    outputMap.put(true, "EXCEL");
+	    outputMap.put(false, "HTML");
+
+	    return outputMap;
 	}
 	
 	public String getDataInicial() {
@@ -58,5 +108,13 @@ public class RelatorioAction extends Action {
 
 	public void setDataFinal(String dataFinal) {
 		this.dataFinal = dataFinal;
+	}
+
+	public Boolean getOutput() {
+		return output;
+	}
+
+	public void setOutput(Boolean output) {
+		this.output = output;
 	}
 }

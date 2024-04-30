@@ -14,7 +14,7 @@ import br.com.soc.sistema.dao.Dao;
 
 public class RelatorioDao extends Dao {
 	
-	public Workbook gerarExcel(String dataInicial, String dataFinal) {
+	public Workbook gerarExcelRelatorio(String dataInicial, String dataFinal) {
 	    String query = "SELECT er.id, e.rowid, e.nm_exame, f.rowid as funcionarioid, f.nm_funcionario, er.data " +
 	            "FROM exame e " +
 	            "JOIN exames_realizados er ON e.rowid = er.id_exame " +
@@ -57,5 +57,42 @@ public class RelatorioDao extends Dao {
 	    }
 	    return null;
 	}
+	
+	public Workbook gerarExcelIndicadores(String dataInicial, String dataFinal) {
+	    String query = "SELECT e.nm_exame, COUNT(*) as total_realizados " +
+	            "FROM exame e " +
+	            "JOIN exames_realizados er ON e.rowid = er.id_exame " +
+	            "WHERE er.data BETWEEN ? AND ? " +
+	            "GROUP BY e.nm_exame " +
+	            "ORDER BY total_realizados DESC " +
+	            "LIMIT 5";
+	    
+	    try (Connection con = getConexao();
+	         PreparedStatement ps = con.prepareStatement(query)) {
 
+	        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	        ps.setDate(1, new java.sql.Date(dateFormat.parse(dataInicial).getTime()));
+	        ps.setDate(2, new java.sql.Date(dateFormat.parse(dataFinal).getTime()));
+
+	        try (ResultSet rs = ps.executeQuery()) {
+	            Workbook workbook = new XSSFWorkbook();
+	            Sheet sheet = workbook.createSheet("Indicadores de Exames Realizados");
+
+	            Row headerRow = sheet.createRow(0);
+	            headerRow.createCell(0).setCellValue("Nome do Exame");
+	            headerRow.createCell(1).setCellValue("Total Realizados");
+
+	            int rowNum = 1;
+	            while (rs.next()) {
+	                Row row = sheet.createRow(rowNum++);
+	                row.createCell(0).setCellValue(rs.getString("nm_exame"));
+	                row.createCell(1).setCellValue(rs.getInt("total_realizados"));
+	            }
+	            return workbook;
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return null;
+	}
 }

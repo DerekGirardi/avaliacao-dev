@@ -103,7 +103,7 @@
 									</a>
 									
 									<a href="${gerar}" class="btn btn-success" style="float: right">
-										<s:text name="label.gerarRelatorio"/>
+										<s:text name="label.relatorio"/>
 									</a>
 								</div>
 							</td>

@@ -17,7 +17,15 @@ public class RelatorioBusiness {
 	
 	public Workbook gerarRelatorio(String dataInicial, String dataFinal) {
 		try {
-			return dao.gerarExcel(dataInicial, dataFinal);
+			return dao.gerarExcelRelatorio(dataInicial, dataFinal);
+		} catch (Exception e) {
+			throw new BusinessException("Nao foi possivel gerar o relatório");
+		}
+	}
+	
+	public Workbook gerarIndicadores(String dataInicial, String dataFinal) {
+		try {
+			return dao.gerarExcelIndicadores(dataInicial, dataFinal);
 		} catch (Exception e) {
 			throw new BusinessException("Nao foi possivel gerar o relatório");
 		}

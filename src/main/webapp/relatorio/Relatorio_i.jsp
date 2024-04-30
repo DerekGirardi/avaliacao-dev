@@ -9,10 +9,8 @@
 	    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	</head>
 	<body class="bg-secondary">
-
 		<div class="container">
 			<s:form action="/gerarRelatorio.action">
-
 				<div class="card mt-5">
 					<div class="card-header">
 						<div class="row">
@@ -47,12 +45,25 @@
 	                            <s:textfield type="text" cssClass="form-control datepicker" id="dataFinal" name="dataFinal" readonly="true" style="background-color: white"/>	           
 	                        </div>  
 	                    </div>
+						
+	                    <div class="row align-items-center">
+	                        <label for="id_exame" class="col-sm-1 col-form-label text-center">
+	                            Tipo do Resultado:
+	                        </label>
+	                        <div class="col-sm-2">
+	                            <s:select cssClass="form-control" id="output" name="output" list="outputList"/>
+	                        </div>
+	                    </div>
 					</div>
 
 					<div class="card-footer">
 						<div class="form-row">
-							<button class="btn btn-primary col-sm-4 offset-sm-1">Gerar</button>
-							<button type="reset" class="btn btn-secondary col-sm-4 offset-sm-2">Limpar Formulario</button>
+						    <s:submit value="Gerar Relatorio" name="gerarRelatorio" 
+						    class="btn btn-primary col-sm-4 offset-sm-1" style="margin: 0px;width: 20%"/>
+						    <s:submit value="Gerar Indicadores" name="gerarIndicadores" 
+						    class="btn btn-primary col-sm-4 offset-sm-1" action="indicadoresRelatorio" style="margin: 0px;width: 20%"/>
+							<button type="reset" class="btn btn-secondary col-sm-4 offset-sm-2" 
+							style="margin: 0px;width: 20%;float: right;">Limpar Formulario</button>
 						</div>
 					</div>
 				</div>
