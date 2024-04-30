@@ -78,12 +78,12 @@
 						<tr>
 							<td colspan="3" style="text-align: left">
 								<s:url action="novoExames" var="novo"/>
-								
-								<a href="${novo}" class="btn btn-success" style="position: fixed">
-									<s:text name="label.adicionar"/>
-								</a>
-								
+								<s:url action="gerarRelatorio" var="gerar"/>
 								<div style="text-align: center">
+									<a href="${novo}" class="btn btn-success" style="float: left">
+										<s:text name="label.adicionar"/>
+									</a>
+									
 									<s:url action="todosExames" var="exames"/>
 									
 									<a href="${exames}" class="btn btn-primary" style="background-color: #0032C1;cursor: default;pointer-events: none;">
@@ -100,6 +100,10 @@
 									
 									<a href="${examesRealizados}" class="btn btn-primary">
 										<s:text name="label.examesRealizados"/>
+									</a>
+									
+									<a href="${gerar}" class="btn btn-success" style="float: right">
+										<s:text name="label.gerarRelatorio"/>
 									</a>
 								</div>
 							</td>

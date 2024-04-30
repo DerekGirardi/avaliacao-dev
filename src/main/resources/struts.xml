@@ -29,6 +29,11 @@
             <result name="input">/realizados/cadExamesRealizados_i.jsp</result>
         	<result name="redirect" type="redirectAction">todosExamesRealizados</result>
         </action>
+        
+        <action name="*Relatorio" class="br.com.soc.sistema.action.relatorio.RelatorioAction" method="{1}">
+        	<result name="success">/relatorio/Relatorio_i.jsp</result>
+        	<result name="redirect" type="redirectAction">Relatorio</result>
+        </action>
     </package>
 
 </struts>
