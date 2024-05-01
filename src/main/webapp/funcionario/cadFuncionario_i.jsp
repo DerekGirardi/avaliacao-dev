@@ -28,7 +28,7 @@
 					
 					<div class="card-body">
 						<div class="row align-items-center">
-							<label for="id" class="col-sm-1 col-form-label text-center">
+							<label for="id" class="col-sm-2 col-form-label text-center">
 								Código:
 							</label>	
 
@@ -38,7 +38,7 @@
 						</div>
 						
 						<div class="row align-items-center mt-3">
-							<label for="nome" class="col-sm-1 col-form-label text-center">
+							<label for="nome" class="col-sm-2 col-form-label text-center">
 								Nome:
 							</label>	
 

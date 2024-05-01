@@ -31,7 +31,7 @@ public class ExamesRealizadosBusiness {
 			dao.insertExameRealizado(exameRealizadoVo);
 
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			System.out.println(e);
 			throw new BusinessException("Nao foi possivel realizar a inclusao do registro");
 		}
 	}	

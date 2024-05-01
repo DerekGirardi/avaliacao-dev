@@ -83,6 +83,7 @@ public class ExamesRealizadosAction extends Action {
 	
 	public Map<String, String> getListaExames() {
 	    Map<String, String> examesMap = new HashMap<>();
+	    examesMap.put(null, "Selecione...");
 	    
 	    for (ExameVo exame : exameBusiness.trazerTodosOsExames()) {
 	        examesMap.put(exame.getRowid(), exame.getNome());
@@ -92,6 +93,7 @@ public class ExamesRealizadosAction extends Action {
 	
 	public Map<String, String> getListaFuncionarios() {
 	    Map<String, String> funcionariosMap = new HashMap<>();
+	    funcionariosMap.put(null, "Selecione...");
 	    
 	    for (FuncionarioVo funcionario : funcionarioBusiness.trazerTodosOsFuncionarios()) {
 	    	funcionariosMap.put(funcionario.getRowid(), funcionario.getNome());

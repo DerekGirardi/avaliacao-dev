@@ -19,12 +19,11 @@ public class RelatorioDao extends Dao {
 	            "FROM exame e " +
 	            "JOIN exames_realizados er ON e.rowid = er.id_exame " +
 	            "JOIN funcionario f ON er.id_funcionario = f.rowid " +
-	            "WHERE er.data BETWEEN ? AND ?";
+	            "WHERE PARSEDATETIME(er.data, 'dd/MM/yyyy') BETWEEN ? AND ?";
 	    
 	    try (Connection con = getConexao();
 	         PreparedStatement ps = con.prepareStatement(query)) {
-
-	        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 	        ps.setDate(1, new java.sql.Date(dateFormat.parse(dataInicial).getTime()));
 	        ps.setDate(2, new java.sql.Date(dateFormat.parse(dataFinal).getTime()));
 
@@ -62,7 +61,7 @@ public class RelatorioDao extends Dao {
         String query = "SELECT e.nm_exame, COUNT(*) as total_realizados " +
                 "FROM exame e " +
                 "JOIN exames_realizados er ON e.rowid = er.id_exame " +
-                "WHERE er.data BETWEEN ? AND ? " +
+                "WHERE PARSEDATETIME(er.data, 'dd/MM/yyyy') BETWEEN ? AND ? " +
                 "GROUP BY e.nm_exame " +
                 "ORDER BY total_realizados DESC " +
                 "LIMIT 5";
@@ -70,7 +69,7 @@ public class RelatorioDao extends Dao {
         try (Connection con = getConexao();
              PreparedStatement ps = con.prepareStatement(query)) {
             
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
             ps.setDate(1, new java.sql.Date(dateFormat.parse(dataInicial).getTime()));
             ps.setDate(2, new java.sql.Date(dateFormat.parse(dataFinal).getTime()));
             

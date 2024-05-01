@@ -9,7 +9,7 @@
 	    <link rel='stylesheet' href='webjars/bootstrap/5.1.3/css/bootstrap.min.css'>
 	    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	</head>
-	<body class="bg-secondary">
+	<body class="bg-secondary" onload="atualizarCodigos()">
 	    <div class="container">
 	        <s:form action="/novoExamesRealizados.action">
 	            <div class="card mt-5">
@@ -26,37 +26,51 @@
 	                </div>
 	                <div class="card-body">
 	                    <div class="row align-items-center">
-	                        <label for="id" class="col-sm-1 col-form-label text-center">
+	                        <label for="id" class="col-sm-2 col-form-label text-center">
 	                            Código:
 	                        </label>   
 	                        <div class="col-sm-2">
 	                            <s:textfield cssClass="form-control" id="id" name="exameRealizadoVo.id" readonly="true"/>                            
 	                        </div>  
 	                    </div>
-	                    <div class="row align-items-center">
-	                        <label for="id_exame" class="col-sm-1 col-form-label text-center">
-	                            Exame:
-	                        </label>
-	                        <div class="col-sm-2">
-	                            <s:select cssClass="form-control" id="id_exame" name="exameRealizadoVo.exameid" list="listaExames"/>
-	                        </div>
-	                    </div>
-	                    <div class="row align-items-center">
-	                        <label for="id_funcionario" class="col-sm-1 col-form-label text-center">
-	                            Funcionário:
+	                    <div class="row align-items-center mt-3">
+	                        <label for="data" class="col-sm-2 col-form-label text-center">
+	                            Data da Realização:
 	                        </label>   
 	                        <div class="col-sm-2">
-	                            <s:select cssClass="form-control" id="id_funcionario" name="exameRealizadoVo.funcionarioid" list="listaFuncionarios"/>                            
+	                            <s:date name="exameRealizadoVo.data" format="dd/MM/yyyy"/>
+	                            <s:textfield type="text" cssClass="form-control datepicker" id="data" name="exameRealizadoVo.data" readonly="true" style="background-color: white"/>	           
 	                        </div>  
 	                    </div>
 	                    <div class="row align-items-center mt-3">
-	                        <label for="data" class="col-sm-1 col-form-label text-center">
-	                            Data da Realização:
+	                        <label for="id_exame" class="col-sm-2 col-form-label text-center">
+	                            Exame:
+	                        </label>
+	                        <div class="col-sm-4">
+	                            <s:select cssClass="form-control" id="id_exame" 
+	                            name="exameRealizadoVo.exameid" list="listaExames" onchange="atualizarCodigos()"/>
+	                        </div>
+	                        <label for="exameid" class="col-sm-1 col-form-label text-center">
+	                            Código:
+	                        </label> 
+	                        <div class="col-sm-1">
+	                            <s:textfield cssClass="form-control" id="exameid" readonly="true"/> 
+	                        </div>
+	                    </div>
+	                    <div class="row align-items-center mt-3">
+	                        <label for="id_funcionario" class="col-sm-2 col-form-label text-center">
+	                            Funcionário:
 	                        </label>   
-	                        <div class="col-sm-5">
-	                            <s:date name="exameRealizadoVo.data" format="yyyy-MM-dd" />
-	                            <s:textfield type="text" cssClass="form-control datepicker" id="data" name="exameRealizadoVo.data" readonly="true" style="background-color: white"/>	           
+	                        <div class="col-sm-4">
+	                            <s:select cssClass="form-control" id="id_funcionario" 
+	                            name="exameRealizadoVo.funcionarioid" list="listaFuncionarios" onchange="atualizarCodigos()"/>                            
 	                        </div>  
+	                        <label for="funcionarioid" class="col-sm-1 col-form-label text-center">
+	                            Código:
+	                        </label> 
+	                        <div class="col-sm-1">
+	                            <s:textfield cssClass="form-control" id="funcionarioid" readonly="true"/> 
+	                        </div>
 	                    </div>
 	                </div>
 	                <div class="card-footer">
@@ -75,12 +89,20 @@
 	    <script>
 	        $(function() {
 	            $(".datepicker").datepicker({
-	                dateFormat: 'yy-mm-dd',
+	                dateFormat: 'dd/mm/yy',
 	                onSelect: function(dateText, inst) {
 	                    $(this).val(dateText);
 	                }
 	            });
 	        });
 	    </script>
+		<script>
+		    function atualizarCodigos() {
+		        var selectValue = document.getElementById("id_funcionario").value;
+		        document.getElementById("funcionarioid").value = selectValue;
+		        var selectValue = document.getElementById("id_exame").value;
+		        document.getElementById("exameid").value = selectValue;
+		    }
+		</script>
 	</body>
 </html>

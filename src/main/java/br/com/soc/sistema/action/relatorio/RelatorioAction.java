@@ -19,6 +19,10 @@ public class RelatorioAction extends Action {
 	private String dataFinal = null;
 	private Boolean output = false;
 	
+	public String redirecionar() {
+		return REDIRECT;
+	}
+	
 	public String gerar() {
 		if(output) {
 		    if (dataInicial == null || dataFinal == null)

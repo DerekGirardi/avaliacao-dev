@@ -78,7 +78,7 @@
 						<tr>
 							<td colspan="3" style="text-align: left">
 								<s:url action="novoFuncionarios" var="novo"/>
-								<s:url action="gerarRelatorio" var="gerar"/>
+								<s:url action="redirecionarRelatorio" var="redirecionar"/>
 								<div style="text-align: center">
 									<a href="${novo}" class="btn btn-success" style="float: left">
 										<s:text name="label.adicionar"/>
@@ -102,7 +102,7 @@
 										<s:text name="label.examesRealizados"/>
 									</a>
 									
-									<a href="${gerar}" class="btn btn-success" style="float: right">
+									<a href="${redirecionar}" class="btn btn-success" style="float: right">
 										<s:text name="label.relatorio"/>
 									</a>
 								</div>

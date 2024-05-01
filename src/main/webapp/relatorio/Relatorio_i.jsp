@@ -27,27 +27,26 @@
 					
 					<div class="card-body">
 	                    <div class="row align-items-center mt-3">
-	                        <label for="data" class="col-sm-1 col-form-label text-center">
+	                        <label for="data" class="col-sm-2 col-form-label text-center">
 	                            Data inicial:
 	                        </label>   
-	                        <div class="col-sm-5">
-	                            <s:date name="dataInicial" format="yyyy-MM-dd" />
+	                        <div class="col-sm-2">
+	                            <s:date name="dataInicial" format="dd/MM/yyyy" />
 	                            <s:textfield type="text" cssClass="form-control datepicker" id="dataInicial" name="dataInicial" readonly="true" style="background-color: white"/>	           
 	                        </div>  
 	                    </div>
-						
 	                    <div class="row align-items-center mt-3">
-	                        <label for="dataFinal" class="col-sm-1 col-form-label text-center">
+	                        <label for="dataFinal" class="col-sm-2 col-form-label text-center">
 	                            Data final:
 	                        </label>   
-	                        <div class="col-sm-5">
-	                            <s:date name="dataFinal" format="yyyy-MM-dd" />
+	                        <div class="col-sm-2">
+	                            <s:date name="dataFinal" format="dd/MM/yyyy" />
 	                            <s:textfield type="text" cssClass="form-control datepicker" id="dataFinal" name="dataFinal" readonly="true" style="background-color: white"/>	           
 	                        </div>  
 	                    </div>
 						
-	                    <div class="row align-items-center">
-	                        <label for="id_exame" class="col-sm-1 col-form-label text-center">
+	                    <div class="row align-items-center mt-3">
+	                        <label for="id_exame" class="col-sm-2 col-form-label text-center">
 	                            Tipo do Resultado:
 	                        </label>
 	                        <div class="col-sm-2">
@@ -76,7 +75,7 @@
 	    <script>
 	        $(function() {
 	            $(".datepicker").datepicker({
-	                dateFormat: 'yy-mm-dd',
+	                dateFormat: 'dd/mm/yy',
 	                onSelect: function(dateText, inst) {
 	                    $(this).val(dateText);
 	                }
