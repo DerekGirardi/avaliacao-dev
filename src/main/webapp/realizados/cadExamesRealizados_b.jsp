@@ -47,10 +47,10 @@
 					<thead>
 						<tr>
 							<th><s:text name="label.id"/></th>
-							<th><s:text name="label.codigoExame"/></th>
-							<th><s:text name="label.nomeExame"/></th>
-							<th><s:text name="label.codigoFuncionario"/></th>
-							<th><s:text name="label.nomeFuncionario"/></th>
+							<th><s:text name="label.codigo.exame"/></th>
+							<th><s:text name="label.nome.exame"/></th>
+							<th><s:text name="label.codigo.funcionario"/></th>
+							<th><s:text name="label.nome.funcionario"/></th>
 							<th><s:text name="label.data"/></th>
 							<th class="text-end mt-5"><s:text name="label.acao"/></th>
 						</tr>
@@ -107,7 +107,7 @@
 									<s:url action="todosExamesRealizados" var="examesRealizados"/>
 									
 									<a href="${examesRealizados}" class="btn btn-primary" style="background-color: #0032C1;cursor: default;pointer-events: none;">
-										<s:text name="label.examesRealizados"/>
+										<s:text name="label.exames.realizados"/>
 									</a>
 									
 									<a href="${redirecionar}" class="btn btn-success" style="float: right">

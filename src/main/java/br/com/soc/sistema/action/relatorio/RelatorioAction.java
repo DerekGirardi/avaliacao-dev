@@ -59,7 +59,6 @@ public class RelatorioAction extends Action {
 		    }
 		}
 		relatorioExame = business.gerarRelatorioHtml(dataInicial, dataFinal);
-		System.out.println(relatorioExame);
 		return REPORT;
 	}
 	
@@ -94,7 +93,6 @@ public class RelatorioAction extends Action {
 		    }
 		}
 		relatorioIndicadores = business.gerarIndicadoresHtml(dataInicial, dataFinal);
-		System.out.println(relatorioIndicadores);
 		return INDICATOR;
 	}
 	

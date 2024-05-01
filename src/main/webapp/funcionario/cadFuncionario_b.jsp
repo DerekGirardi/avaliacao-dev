@@ -99,7 +99,7 @@
 									<s:url action="todosExamesRealizados" var="examesRealizados"/>
 									
 									<a href="${examesRealizados}" class="btn btn-primary">
-										<s:text name="label.examesRealizados"/>
+										<s:text name="label.exames.realizados"/>
 									</a>
 									
 									<a href="${redirecionar}" class="btn btn-success" style="float: right">
