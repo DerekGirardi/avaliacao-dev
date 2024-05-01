@@ -63,6 +63,11 @@
             <result name="success">/login/Logout_b.jsp</result>
             <result name="login" type="redirectAction">Login</result>
         </action>
+        
+        <action name="*TrocarSenha" class="br.com.soc.sistema.action.login.TrocarSenhaAction" method="{1}">
+            <result name="input">/login/TrocarSenha_i.jsp</result>
+            <result name="success" type="redirectAction">Login</result>
+        </action>
     </package>
 
 </struts>

@@ -52,4 +52,39 @@ public class LoginDao extends Dao {
             }
         }
     }
-}  
+
+    public boolean updatePassword(UsuarioVo usuarioVo, String newPassword) {
+        String query = "UPDATE usuario SET pw_usuario = ? WHERE nm_usuario = ?";
+        Connection con = null;
+        PreparedStatement ps = null;
+
+        try {
+            con = getConexao();
+            ps = con.prepareStatement(query);
+
+            ps.setString(1, newPassword);
+            ps.setString(2, usuarioVo.getNome());
+
+            int rowsAffected = ps.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+}

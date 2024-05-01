@@ -19,4 +19,12 @@ public class LoginBusiness {
 			throw new BusinessException("Nao foi possivel realizar a validação do usuário");
 		}
 	}
+	
+	public boolean atualizarSenha(UsuarioVo usuarioVo, String newPassword) {
+		try {
+			return dao.updatePassword(usuarioVo, newPassword);
+		} catch (Exception e) {
+			throw new BusinessException("Nao foi possivel atualizar a senha");
+		}
+	}
 }

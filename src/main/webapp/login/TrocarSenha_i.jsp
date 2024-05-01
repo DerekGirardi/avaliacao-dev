@@ -5,7 +5,7 @@
 	<head>
 	    <meta charset="UTF-8">
 	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	    <title>Login</title>
+	    <title>Trocar Senha</title>
 	    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 	
 	    <style>
@@ -14,7 +14,7 @@
 	            font-family: Arial, sans-serif;
 	            padding: 50px;
 	        }
-	        .login-container {
+	        .password-change-container {
 	            max-width: 400px;
 	            margin: auto;
 	            background-color: #fff;
@@ -22,39 +22,41 @@
 	            padding: 30px;
 	            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
 	        }
-	        .login-container h2 {
+	        .password-change-container h2 {
 	            text-align: center;
 	            margin-bottom: 30px;
 	        }
-	        .login-container label {
+	        .password-change-container label {
 	            font-weight: bold;
 	        }
-	        .login-container .btn-login {
-	            width: 100%;
-	        }
-	        .login-container .btn-change-password {
-	            margin-top: 10px;
+	        .password-change-container .btn-save, .password-change-container .btn-return {
 	            width: 100%;
 	        }
 	    </style>
 	</head>
 	<body>
-	    <div class="login-container">
-	        <h2>Login</h2>
-	        <s:form action="validateUserLogin">
+	    <div class="password-change-container">
+	        <h2>Trocar Senha</h2>
+	        <s:form action="executeTrocarSenha">
 	            <div class="form-group">
-	                <label for="nome">Nome de usuário:</label>
+	                <label for=nome>Usuário:</label>
 	                <s:textfield cssClass="form-control" id="nome" name="usuarioVo.nome" required="true"/>
 	            </div>
 	            <div class="form-group">
-	                <label for="senha">Senha:</label>
+	                <label for="senha">Senha Atual:</label>
 	                <s:password cssClass="form-control" id="senha" name="usuarioVo.senha" required="true"/>
 	            </div>
-	            <button type="submit" class="btn btn-primary btn-login">Login</button>
+	            <div class="form-group">
+	                <label for="newpassword">Nova Senha:</label>
+	                <s:password cssClass="form-control" id="newpassword" name="novaSenha" required="true"/>
+	            </div>
+	            <div class="form-group">
+	                <label for="newpasswordconf">Confirmar Nova Senha:</label>
+	                <s:password cssClass="form-control" id="newpasswordconf" name="novaSenhaConfirm" required="true"/>
+	            </div>
+	            <button type="submit" class="btn btn-primary btn-save">Salvar</button>
+	            <a href="Login.action" class="btn btn-secondary btn-return mt-3">Retornar</a>
 	        </s:form>
-	        <div class="text-center">
-	            <a href="executeTrocarSenha.action" class="btn btn-link btn-change-password">Alterar senha</a>
-	        </div>
 	    </div>
 	    
 	    <script src="webjars/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
