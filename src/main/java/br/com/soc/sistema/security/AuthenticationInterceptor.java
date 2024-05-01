@@ -11,9 +11,7 @@ public class AuthenticationInterceptor extends AbstractInterceptor {
     @Override
     public String intercept(ActionInvocation invocation) throws Exception {
         HttpSession session = ServletActionContext.getRequest().getSession(false);
-        System.out.println("chegou aqui ai 1");
         if (session == null || session.getAttribute("username") == null) {
-        	System.out.println("chegou aqui ai 2");
             return "login";
         }
         return invocation.invoke();

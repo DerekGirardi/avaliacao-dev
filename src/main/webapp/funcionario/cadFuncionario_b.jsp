@@ -9,6 +9,9 @@
 	</head>
 	<body class="bg-secondary">	
 		<div class="container">
+		    <div class="d-flex justify-content-end mt-3">
+		        <a href="executeLogout.action" class="btn btn-danger">SAIR</a>
+		    </div>
 			<div class="row mt-5 mb-2">
 				<div class="col-sm p-0">
 					<s:form action="/filtrarFuncionarios.action">

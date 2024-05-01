@@ -15,7 +15,6 @@ public class LoginAction extends Action {
     		return INPUT;
     	if(usuarioVo.getSenha() == null || usuarioVo.getSenha().isEmpty())
     		return INPUT;
-    	System.out.println("chegou 1");
         if (business.validarUsuario(usuarioVo)) {
         	ServletActionContext.getRequest().getSession().setAttribute("username", usuarioVo.getNome());
         	System.out.println("Usuario validado com sucesso");

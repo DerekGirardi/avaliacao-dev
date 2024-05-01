@@ -58,6 +58,11 @@
             <result name="success" type="redirectAction">todosExames</result>
             <result name="input">/login/Login_i.jsp</result>
         </action>
+        
+        <action name="*Logout" class="br.com.soc.sistema.action.login.LogoutAction" method="{1}">
+            <result name="success">/login/Logout_b.jsp</result>
+            <result name="login" type="redirectAction">Login</result>
+        </action>
     </package>
 
 </struts>

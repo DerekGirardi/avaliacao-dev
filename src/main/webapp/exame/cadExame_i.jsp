@@ -10,8 +10,10 @@
 	<body class="bg-secondary">
 
 		<div class="container">
+		    <div class="d-flex justify-content-end mt-3">
+		        <a href="executeLogout.action" class="btn btn-danger">SAIR</a>
+		    </div>
 			<s:form action="/novoExames.action">
-
 				<div class="card mt-5">
 					<div class="card-header">
 						<div class="row">
