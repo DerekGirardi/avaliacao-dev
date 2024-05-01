@@ -1,11 +1,14 @@
 package br.com.soc.sistema.business;
 
 import java.io.ByteArrayOutputStream;
+import java.util.List;
 
 import org.apache.poi.ss.usermodel.Workbook;
 
 import br.com.soc.sistema.dao.relatorio.RelatorioDao;
 import br.com.soc.sistema.exception.BusinessException;
+import br.com.soc.sistema.vo.RelatorioExameVo;
+import br.com.soc.sistema.vo.RelatorioIndicadoresVo;
 
 public class RelatorioBusiness {
 
@@ -15,7 +18,7 @@ public class RelatorioBusiness {
 		this.dao = new RelatorioDao();
 	}	
 	
-	public Workbook gerarRelatorio(String dataInicial, String dataFinal) {
+	public Workbook gerarRelatorioExcel(String dataInicial, String dataFinal) {
 		try {
 			return dao.gerarExcelRelatorio(dataInicial, dataFinal);
 		} catch (Exception e) {
@@ -23,9 +26,25 @@ public class RelatorioBusiness {
 		}
 	}
 	
-	public Workbook gerarIndicadores(String dataInicial, String dataFinal) {
+	public List<RelatorioExameVo> gerarRelatorioHtml(String dataInicial, String dataFinal) {
+		try {
+			return dao.gerarHtmlRelatorio(dataInicial, dataFinal);
+		} catch (Exception e) {
+			throw new BusinessException("Nao foi possivel gerar o relatório");
+		}
+	}
+	
+	public Workbook gerarIndicadoresExcel(String dataInicial, String dataFinal) {
 		try {
 			return dao.gerarExcelIndicadores(dataInicial, dataFinal);
+		} catch (Exception e) {
+			throw new BusinessException("Nao foi possivel gerar o relatório");
+		}
+	}
+	
+	public List<RelatorioIndicadoresVo> gerarIndicadoresHtml(String dataInicial, String dataFinal) {
+		try {
+			return dao.gerarHtmlIndicadores(dataInicial, dataFinal);
 		} catch (Exception e) {
 			throw new BusinessException("Nao foi possivel gerar o relatório");
 		}

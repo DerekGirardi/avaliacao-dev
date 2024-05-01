@@ -3,7 +3,13 @@ package br.com.soc.sistema.dao.relatorio;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
 
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -11,6 +17,8 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import br.com.soc.sistema.dao.Dao;
+import br.com.soc.sistema.vo.RelatorioExameVo;
+import br.com.soc.sistema.vo.RelatorioIndicadoresVo;
 
 public class RelatorioDao extends Dao {
 	
@@ -56,6 +64,43 @@ public class RelatorioDao extends Dao {
 	    }
 	    return null;
 	}
+	
+    public List<RelatorioExameVo> gerarHtmlRelatorio(String dataInicial, String dataFinal) {
+        String query = "SELECT er.id, e.rowid as exameid, e.nm_exame, f.rowid as funcionarioid, f.nm_funcionario, er.data " +
+                "FROM exame e " +
+                "JOIN exames_realizados er ON e.rowid = er.id_exame " +
+                "JOIN funcionario f ON er.id_funcionario = f.rowid " +
+                "WHERE PARSEDATETIME(er.data, 'dd/MM/yyyy') BETWEEN ? AND ?";
+        
+        List<RelatorioExameVo> relatorioExames = new ArrayList<>();
+
+        try (Connection con = getConexao();
+             PreparedStatement ps = con.prepareStatement(query)) {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            Date dataInicialDate = dateFormat.parse(dataInicial);
+            Date dataFinalDate = dateFormat.parse(dataFinal);
+
+            ps.setDate(1, new java.sql.Date(dataInicialDate.getTime()));
+            ps.setDate(2, new java.sql.Date(dataFinalDate.getTime()));
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    RelatorioExameVo vo = new RelatorioExameVo();
+                    vo.setId(rs.getString("id"));
+                    vo.setExameid(rs.getString("exameid"));
+                    vo.setExamenm(rs.getString("nm_exame"));
+                    vo.setFuncionarioid(rs.getString("funcionarioid"));
+                    vo.setFuncionarionm(rs.getString("nm_funcionario"));
+                    vo.setData(rs.getString("data"));
+
+                    relatorioExames.add(vo);
+                }
+            }
+        } catch (SQLException | ParseException e) {
+            e.printStackTrace();
+        }
+        return relatorioExames;
+    }
 	
     public Workbook gerarExcelIndicadores(String dataInicial, String dataFinal) {
         String query = "SELECT e.nm_exame, COUNT(*) as total_realizados " +
@@ -106,5 +151,40 @@ public class RelatorioDao extends Dao {
             e.printStackTrace();
         }
         return null;
+    }
+    
+    public List<RelatorioIndicadoresVo> gerarHtmlIndicadores(String dataInicial, String dataFinal) {
+        String query = "SELECT e.nm_exame, COUNT(*) as total_realizados " +
+                "FROM exame e " +
+                "JOIN exames_realizados er ON e.rowid = er.id_exame " +
+                "WHERE PARSEDATETIME(er.data, 'dd/MM/yyyy') BETWEEN ? AND ? " +
+                "GROUP BY e.nm_exame " +
+                "ORDER BY total_realizados DESC " +
+                "LIMIT 5";
+
+        List<RelatorioIndicadoresVo> relatorioIndicadores = new ArrayList<>();
+
+        try (Connection con = getConexao();
+             PreparedStatement ps = con.prepareStatement(query)) {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            Date dataInicialDate = dateFormat.parse(dataInicial);
+            Date dataFinalDate = dateFormat.parse(dataFinal);
+
+            ps.setDate(1, new java.sql.Date(dataInicialDate.getTime()));
+            ps.setDate(2, new java.sql.Date(dataFinalDate.getTime()));
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    RelatorioIndicadoresVo vo = new RelatorioIndicadoresVo();
+                    vo.setNome(rs.getString("nm_exame"));
+                    vo.setQtd(rs.getString("total_realizados"));
+
+                    relatorioIndicadores.add(vo);
+                }
+            }
+        } catch (SQLException | ParseException e) {
+            e.printStackTrace();
+        }
+        return relatorioIndicadores;
     }
 }

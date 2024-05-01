@@ -1,6 +1,8 @@
 package br.com.soc.sistema.action.relatorio;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletOutputStream;
@@ -11,10 +13,13 @@ import org.apache.struts2.ServletActionContext;
 
 import br.com.soc.sistema.business.RelatorioBusiness;
 import br.com.soc.sistema.infra.Action;
-import br.com.soc.sistema.vo.ExameVo;
+import br.com.soc.sistema.vo.RelatorioExameVo;
+import br.com.soc.sistema.vo.RelatorioIndicadoresVo;
 
 public class RelatorioAction extends Action {
 	private RelatorioBusiness business = new RelatorioBusiness();
+	private List<RelatorioExameVo> relatorioExame = new ArrayList<>();
+	private List<RelatorioIndicadoresVo> relatorioIndicadores = new ArrayList<>();
 	private String dataInicial = null;
 	private String dataFinal = null;
 	private Boolean output = false;
@@ -28,7 +33,7 @@ public class RelatorioAction extends Action {
 		    if (dataInicial == null || dataFinal == null)
 		        return REDIRECT;
 
-		    Workbook workbook = business.gerarRelatorio(dataInicial, dataFinal);
+		    Workbook workbook = business.gerarRelatorioExcel(dataInicial, dataFinal);
 
 		    if (workbook != null) {
 		        try {
@@ -53,6 +58,8 @@ public class RelatorioAction extends Action {
 		        return REDIRECT;
 		    }
 		}
+		relatorioExame = business.gerarRelatorioHtml(dataInicial, dataFinal);
+		System.out.println(relatorioExame);
 		return REPORT;
 	}
 	
@@ -61,7 +68,7 @@ public class RelatorioAction extends Action {
 		    if (dataInicial == null || dataFinal == null)
 		        return REDIRECT;
 
-		    Workbook workbook = business.gerarIndicadores(dataInicial, dataFinal);
+		    Workbook workbook = business.gerarIndicadoresExcel(dataInicial, dataFinal);
 
 		    if (workbook != null) {
 		        try {
@@ -86,6 +93,8 @@ public class RelatorioAction extends Action {
 		        return REDIRECT;
 		    }
 		}
+		relatorioIndicadores = business.gerarIndicadoresHtml(dataInicial, dataFinal);
+		System.out.println(relatorioIndicadores);
 		return INDICATOR;
 	}
 	
@@ -120,5 +129,21 @@ public class RelatorioAction extends Action {
 
 	public void setOutput(Boolean output) {
 		this.output = output;
+	}
+
+	public List<RelatorioExameVo> getRelatorioExame() {
+		return relatorioExame;
+	}
+
+	public void setRelatorioExame(List<RelatorioExameVo> relatorioExame) {
+		this.relatorioExame = relatorioExame;
+	}
+
+	public List<RelatorioIndicadoresVo> getRelatorioIndicadores() {
+		return relatorioIndicadores;
+	}
+
+	public void setRelatorioIndicadores(List<RelatorioIndicadoresVo> relatorioIndicadores) {
+		this.relatorioIndicadores = relatorioIndicadores;
 	}
 }
