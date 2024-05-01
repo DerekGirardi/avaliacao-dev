@@ -53,10 +53,10 @@ public class ExameAction extends Action {
 	}
 	
 	public String excluir() {
-
+	    
 		business.excluirExame(exameVo.getRowid());
-		
-		return REDIRECT;
+
+	    return REDIRECT;
 	}
 	
 	public List<Buscar> getListaOpcoesCombo(){

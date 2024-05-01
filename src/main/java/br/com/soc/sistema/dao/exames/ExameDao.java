@@ -38,7 +38,6 @@ public class ExameDao extends Dao {
 	        psVerificacao.setInt(1, codigo);
 	        try (ResultSet rs = psVerificacao.executeQuery()) {
 	            if (rs.next() && rs.getInt(1) > 0) {
-	                System.out.println("Não é possível excluir o exame porque foi realizado por um ou mais funcionários.");
 	                return;
 	            }
 	        }

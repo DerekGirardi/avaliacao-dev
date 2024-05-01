@@ -13,29 +13,50 @@
 	<constant name="struts.mapper.action.prefix.enabled" value="true" />
 	
     <package name="br.com.soc.sistema" extends="struts-default" strict-method-invocation="false">
+        <interceptors>
+            <interceptor name="authenticationInterceptor" class="br.com.soc.sistema.security.AuthenticationInterceptor"/>
+            <interceptor-stack name="authStack">
+                <interceptor-ref name="defaultStack"/>
+                <interceptor-ref name="authenticationInterceptor"/>
+            </interceptor-stack>
+        </interceptors>
+        
         <action name="*Exames" class="br.com.soc.sistema.action.exame.ExameAction" method="{1}">
+            <interceptor-ref name="authStack"/>
         	<result name="success">/exame/cadExame_b.jsp</result>
             <result name="input">/exame/cadExame_i.jsp</result>
         	<result name="redirect" type="redirectAction">todosExames</result>
+        	<result name="login" type="redirectAction">validateUserLogin</result>
         </action>
         
         <action name="*Funcionarios" class="br.com.soc.sistema.action.funcionario.FuncionarioAction" method="{1}">
+        	<interceptor-ref name="authStack"/>
         	<result name="success">/funcionario/cadFuncionario_b.jsp</result>
             <result name="input">/funcionario/cadFuncionario_i.jsp</result>
         	<result name="redirect" type="redirectAction">todosFuncionarios</result>
+        	<result name="login" type="redirectAction">Login</result>
         </action>
         
         <action name="*ExamesRealizados" class="br.com.soc.sistema.action.realizados.ExamesRealizadosAction" method="{1}">
+        	<interceptor-ref name="authStack"/>
         	<result name="success">/realizados/cadExamesRealizados_b.jsp</result>
             <result name="input">/realizados/cadExamesRealizados_i.jsp</result>
         	<result name="redirect" type="redirectAction">todosExamesRealizados</result>
+        	<result name="login" type="redirectAction">Login</result>
         </action>
         
         <action name="*Relatorio" class="br.com.soc.sistema.action.relatorio.RelatorioAction" method="{1}">
+        	<interceptor-ref name="authStack"/>
         	<result name="success">/relatorio/Relatorio_i.jsp</result>
         	<result name="report">/relatorio/RelatorioExames_b.jsp</result>
         	<result name="indicator">/relatorio/RelatorioIndicadores_b.jsp</result>
         	<result name="redirect" type="redirectAction">Relatorio</result>
+        	<result name="login" type="redirectAction">Login</result>
+        </action>
+        
+        <action name="*Login" class="br.com.soc.sistema.action.login.LoginAction" method="{1}">
+            <result name="success" type="redirectAction">todosExames</result>
+            <result name="input">/login/Login_i.jsp</result>
         </action>
     </package>
 

@@ -47,7 +47,7 @@
 	                            Exame:
 	                        </label>
 	                        <div class="col-sm-4">
-	                            <s:select cssClass="form-control" id="id_exame" 
+	                            <s:select cssClass="form-control" id="id_exame" headerKey="" headerValue="Selecione..." 
 	                            name="exameRealizadoVo.exameid" list="listaExames" onchange="atualizarCodigos()"/>
 	                        </div>
 	                        <label for="exameid" class="col-sm-1 col-form-label text-center">
@@ -62,8 +62,8 @@
 	                            Funcionário:
 	                        </label>   
 	                        <div class="col-sm-4">
-	                            <s:select cssClass="form-control" id="id_funcionario" 
-	                            name="exameRealizadoVo.funcionarioid" list="listaFuncionarios" onchange="atualizarCodigos()"/>                            
+	                            <s:select cssClass="form-control" id="id_funcionario" headerKey="" headerValue="Selecione..." 
+	                            name="exameRealizadoVo.funcionarioid" list="listaFuncionarios" onchange="atualizarCodigos()"/>        
 	                        </div>  
 	                        <label for="funcionarioid" class="col-sm-1 col-form-label text-center">
 	                            Código:
