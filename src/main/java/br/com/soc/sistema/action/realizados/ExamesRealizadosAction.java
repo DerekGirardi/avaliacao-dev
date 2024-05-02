@@ -40,9 +40,9 @@ public class ExamesRealizadosAction extends Action {
 	}
 	
 	public String novo() {
-		if(exameRealizadoVo.getExameid() == null 
-			|| exameRealizadoVo.getFuncionarioid() == null 
-			|| exameRealizadoVo.getData() == null)
+		if(exameRealizadoVo.getExameid() == null 		|| exameRealizadoVo.getExameid().isEmpty()
+		|| exameRealizadoVo.getFuncionarioid() == null 	|| exameRealizadoVo.getFuncionarioid().isEmpty()
+		|| exameRealizadoVo.getData() == null 			|| exameRealizadoVo.getData().isEmpty())
 			return INPUT;
 
 		if(exameRealizadoVo.getId().isEmpty())

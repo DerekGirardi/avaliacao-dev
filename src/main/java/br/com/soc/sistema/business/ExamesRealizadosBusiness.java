@@ -72,38 +72,32 @@ public class ExamesRealizadosBusiness {
 					throw new BusinessException(FOI_INFORMADO_CARACTER_NO_LUGAR_DE_UM_NUMERO);
 				}
 			break;
-			
 			case ID_EXAME:
 				try {
 					Integer codigo = Integer.parseInt(filter.getValorBusca());
-					examesRealizados.add(dao.findByCodigoExame(codigo));
+					examesRealizados.addAll(dao.findByCodigoExame(codigo));
 				}catch (NumberFormatException e) {
 					throw new BusinessException(FOI_INFORMADO_CARACTER_NO_LUGAR_DE_UM_NUMERO);
 				}
 			break;
-			
-			case ID_FUNCIONARIO:
-				try {
-					Integer codigo = Integer.parseInt(filter.getValorBusca());
-					examesRealizados.add(dao.findByCodigoFuncionario(codigo));
-				}catch (NumberFormatException e) {
-					throw new BusinessException(FOI_INFORMADO_CARACTER_NO_LUGAR_DE_UM_NUMERO);
-				}
-			break;
-
 			case NOME_EXAME:
 				examesRealizados.addAll(dao.findAllByNomeExame(filter.getValorBusca()));
 			break;
-			
+			case ID_FUNCIONARIO:
+				try {
+					Integer codigo = Integer.parseInt(filter.getValorBusca());
+					examesRealizados.addAll(dao.findByCodigoFuncionario(codigo));
+				}catch (NumberFormatException e) {
+					throw new BusinessException(FOI_INFORMADO_CARACTER_NO_LUGAR_DE_UM_NUMERO);
+				}
+			break;
 			case NOME_FUNCIONARIO:
 				examesRealizados.addAll(dao.findAllByNomeFuncionario(filter.getValorBusca()));
 			break;
-			
 			case DATA:
-				examesRealizados.add(dao.findAllByData(filter.getValorBusca()));
+				examesRealizados.addAll(dao.findAllByData(filter.getValorBusca()));
 			break;
 		}
-		
 		return examesRealizados;
 	}
 	

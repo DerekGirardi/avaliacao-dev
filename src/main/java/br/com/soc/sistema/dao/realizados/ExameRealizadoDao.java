@@ -155,7 +155,7 @@ public class ExameRealizadoDao extends Dao {
 		return Collections.emptyList();
 	}
 	
-	public ExameRealizadoVo findByCodigoExame(Integer codigo) {
+	public List<ExameRealizadoVo> findByCodigoExame(Integer codigo) {
 		StringBuilder query = new StringBuilder("SELECT id, id_exame, id_funcionario, data FROM exames_realizados ")
 								.append("WHERE id_exame = ?");
 		
@@ -167,6 +167,7 @@ public class ExameRealizadoDao extends Dao {
 			
 			try(ResultSet rs = ps.executeQuery()){
 				ExameRealizadoVo vo =  null;
+				List<ExameRealizadoVo> examesRealizados = new ArrayList<>();
 				
 				while (rs.next()) {
 					vo = new ExameRealizadoVo();
@@ -174,8 +175,10 @@ public class ExameRealizadoDao extends Dao {
 					vo.setExameid(rs.getString("id_exame"));
 					vo.setFuncionarioid(rs.getString("id_funcionario"));
 					vo.setData(rs.getString("data"));
+					
+					examesRealizados.add(vo);
 				}
-				return vo;
+				return examesRealizados;
 			}
 		}catch (SQLException e) {
 			e.printStackTrace();
@@ -214,7 +217,7 @@ public class ExameRealizadoDao extends Dao {
 		return Collections.emptyList();
 	}
 	
-	public ExameRealizadoVo findByCodigoFuncionario(Integer codigo) {
+	public List<ExameRealizadoVo> findByCodigoFuncionario(Integer codigo) {
 		StringBuilder query = new StringBuilder("SELECT id, id_exame, id_funcionario, data FROM exames_realizados ")
 								.append("WHERE id_funcionario = ?");
 		
@@ -226,6 +229,7 @@ public class ExameRealizadoDao extends Dao {
 			
 			try(ResultSet rs = ps.executeQuery()){
 				ExameRealizadoVo vo =  null;
+				List<ExameRealizadoVo> examesRealizados = new ArrayList<>();
 				
 				while (rs.next()) {
 					vo = new ExameRealizadoVo();
@@ -233,8 +237,10 @@ public class ExameRealizadoDao extends Dao {
 					vo.setExameid(rs.getString("id_exame"));
 					vo.setFuncionarioid(rs.getString("id_funcionario"));
 					vo.setData(rs.getString("data"));
+					
+					examesRealizados.add(vo);
 				}
-				return vo;
+				return examesRealizados;
 			}
 		}catch (SQLException e) {
 			e.printStackTrace();
@@ -242,7 +248,7 @@ public class ExameRealizadoDao extends Dao {
 		return null;
 	}
 	
-	public ExameRealizadoVo findAllByData(String data) {
+	public List<ExameRealizadoVo> findAllByData(String data) {
 		StringBuilder query = new StringBuilder("SELECT id, id_exame, id_funcionario, data FROM exames_realizados ")
 								.append("WHERE data = ?");
 		
@@ -254,6 +260,7 @@ public class ExameRealizadoDao extends Dao {
 			
 			try(ResultSet rs = ps.executeQuery()){
 				ExameRealizadoVo vo =  null;
+				List<ExameRealizadoVo> examesRealizados = new ArrayList<>();
 				
 				while (rs.next()) {
 					vo = new ExameRealizadoVo();
@@ -261,8 +268,10 @@ public class ExameRealizadoDao extends Dao {
 					vo.setExameid(rs.getString("id_exame"));
 					vo.setFuncionarioid(rs.getString("id_funcionario"));
 					vo.setData(rs.getString("data"));
+					
+					examesRealizados.add(vo);
 				}
-				return vo;
+				return examesRealizados;
 			}
 		}catch (SQLException e) {
 			e.printStackTrace();

@@ -32,7 +32,7 @@ public class ExameAction extends Action {
 	}
 	
 	public String novo() {
-		if(exameVo.getNome() == null)
+		if(exameVo.getNome() == null || exameVo.getNome().isEmpty())
 			return INPUT;
 
 		if(exameVo.getRowid().isEmpty())

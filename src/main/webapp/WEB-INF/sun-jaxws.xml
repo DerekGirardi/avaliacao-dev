@@ -10,4 +10,7 @@
      <endpoint name="WebServiceExamesRealizadosImpl" 
         implementation="br.com.soc.sistema.soap.WebServiceExamesRealizadosImpl" 
         url-pattern="/examesRealizadosSoap" ></endpoint>
+     <endpoint name="WebServiceRelatoriosImpl" 
+        implementation="br.com.soc.sistema.soap.WebServiceRelatoriosImpl" 
+        url-pattern="/relatorioSoap" ></endpoint>
 </endpoints>

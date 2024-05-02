@@ -32,7 +32,7 @@ public class FuncionarioAction extends Action {
 	}
 	
 	public String novo() {
-		if(funcionarioVo.getNome() == null)
+		if(funcionarioVo.getNome() == null || funcionarioVo.getNome().isEmpty())
 			return INPUT;
 
 		if(funcionarioVo.getRowid().isEmpty())

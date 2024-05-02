@@ -10,8 +10,8 @@ import br.com.soc.sistema.exception.BusinessException;
 public enum BuscarExamesRealizados {
 	ID("1", "ID DO PROCEDIMENTO"), 
 	ID_EXAME("2", "ID DO EXAME"), 
-	ID_FUNCIONARIO("3", "ID DO FUNCIONARIO"), 
 	NOME_EXAME("4", "NOME DO EXAME"), 
+	ID_FUNCIONARIO("3", "ID DO FUNCIONARIO"), 
 	NOME_FUNCIONARIO("5", "NOME DO FUNCIONARIO"),
 	DATA("6", "DATA");
 	
