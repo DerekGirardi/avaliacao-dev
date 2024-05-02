@@ -29,10 +29,11 @@ public class RelatorioAction extends Action {
 	}
 	
 	public String gerar() {
+		if(dataInicial.isEmpty() 	|| dataInicial == null 
+		|| dataFinal.isEmpty() 		|| dataFinal == null)
+	        return REDIRECT;
+		
 		if(output) {
-		    if (dataInicial == null || dataFinal == null)
-		        return REDIRECT;
-
 		    Workbook workbook = business.gerarRelatorioExcel(dataInicial, dataFinal);
 
 		    if (workbook != null) {
@@ -63,10 +64,11 @@ public class RelatorioAction extends Action {
 	}
 	
 	public String indicadores() {
+		if(dataInicial.isEmpty() 	|| dataInicial == null 
+		|| dataFinal.isEmpty() 		|| dataFinal == null)
+	        return REDIRECT;
+		
 		if(output) {
-		    if (dataInicial == null || dataFinal == null)
-		        return REDIRECT;
-
 		    Workbook workbook = business.gerarIndicadoresExcel(dataInicial, dataFinal);
 
 		    if (workbook != null) {

@@ -34,8 +34,9 @@
 	                            Data inicial:
 	                        </label>   
 	                        <div class="col-sm-2">
-	                            <s:date name="dataInicial" format="dd/MM/yyyy" />
-	                            <s:textfield type="text" cssClass="form-control datepicker" id="dataInicial" name="dataInicial" readonly="true" style="background-color: white"/>	           
+	                            <s:date name="dataInicial" format="dd/MM/yyyy"/>
+	                            <s:textfield type="text" cssClass="form-control datepicker" id="dataInicial" 
+	                            name="dataInicial" readonly="true" style="background-color: white"/>	           
 	                        </div>  
 	                    </div>
 	                    <div class="row align-items-center mt-3">
@@ -43,8 +44,9 @@
 	                            Data final:
 	                        </label>   
 	                        <div class="col-sm-2">
-	                            <s:date name="dataFinal" format="dd/MM/yyyy" />
-	                            <s:textfield type="text" cssClass="form-control datepicker" id="dataFinal" name="dataFinal" readonly="true" style="background-color: white"/>	           
+	                            <s:date name="dataFinal" format="dd/MM/yyyy"/>
+	                            <s:textfield type="text" cssClass="form-control datepicker" id="dataFinal" 
+	                            name="dataFinal" readonly="true" style="background-color: white"/>	           
 	                        </div>  
 	                    </div>
 						
